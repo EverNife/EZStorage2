@@ -21,9 +21,9 @@ repositories {
     }
 }
 
-version = "2.5.0"
+version = "L-1.12.2.000"
 group= "com.zerofall.ezstorage2"
-archivesBaseName = "ezstorage"
+archivesBaseName = "EZStorage"
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
