@@ -14,10 +14,11 @@ out
 .idea
 
 # gradle
-/build
+build
 .gradle
 
 # other
-/eclipse
-/run
-/server
+eclipse
+run
+
+classes/
