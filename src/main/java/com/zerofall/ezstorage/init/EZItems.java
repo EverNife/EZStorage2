@@ -4,6 +4,7 @@ import com.zerofall.ezstorage.config.EZConfig;
 import com.zerofall.ezstorage.item.EZItem;
 import com.zerofall.ezstorage.item.ItemDolly;
 import com.zerofall.ezstorage.item.ItemKey;
+import com.zerofall.ezstorage.item.ItemRemoteAccessTerminal;
 import com.zerofall.ezstorage.registry.IRegistryItem;
 import com.zerofall.ezstorage.registry.RegistryHelper;
 import com.zerofall.ezstorage.util.JointList;
@@ -25,12 +26,14 @@ public class EZItems {
 	public static EZItem key;
 	public static EZItem dolly_basic;
 	public static EZItem dolly_super;
+	public static EZItem remote_access_terminal;
 
 	private static void init() {
 		items.join(
 			key = new ItemKey(),
 			dolly_basic = new ItemDolly(6, "dolly"),
-			dolly_super = new ItemDolly(16, "dolly_super")
+			dolly_super = new ItemDolly(16, "dolly_super"),
+			remote_access_terminal = new ItemRemoteAccessTerminal("remote_access_terminal")
 		);
 		if(!EZConfig.enableSecurity) items.remove(key); // security disabled
 		if(!EZConfig.enableDolly) {

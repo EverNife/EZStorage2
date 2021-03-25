@@ -24,3 +24,4 @@ tile.ezstorage:security_box.name=Security Box
 item.ezstorage:key.name=EZ Key
 item.ezstorage:dolly.name=Dolly
 item.ezstorage:dolly_super.name=Super Dolly
+item.ezstorage:remote_access_terminal.name=Remote Access Terminal
