@@ -40,10 +40,10 @@ public class ItemRemoteAccessTerminal extends EZItem {
 			ActionResult<ItemStack> RESULT_SUCESS = new ActionResult(EnumActionResult.PASS, player.getHeldItem(hand)); //Create default Return value
 
 			// get the tag compound
-			NBTTagCompound nbtTagCompound = stack.hasTagCompound() ?  stack.getTagCompound() : new NBTTagCompound();
+			NBTTagCompound nbtTagCompound = stack.hasTagCompound() ?  stack.getTagCompound() : null;
 
 			// check if the terminal is linked
-			if(!nbtTagCompound.getBoolean("isLinked")) {
+			if(nbtTagCompound == null || !nbtTagCompound.getBoolean("isLinked")) {
 				player.sendMessage(new TextComponentString("§e§l ▶ §cO seu [Remote Access Terminal] não está vinculado a nenhum StorageCore!"));
 				player.sendMessage(new TextComponentString("§e§l    §e > SEGURE SHIFT e clique com o botão direito em um StorageCore para vincular o mesmo!"));
 				return RESULT_SUCESS;
