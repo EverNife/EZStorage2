@@ -17,7 +17,11 @@ import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraftforge.common.DimensionManager;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.FakePlayer;
+import net.minecraftforge.event.ForgeEventFactory;
+import net.minecraftforge.event.entity.living.LivingSpawnEvent;
+import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -40,12 +44,14 @@ public class ItemRemoteAccessTerminal extends EZItem {
 			ActionResult<ItemStack> RESULT_SUCESS = new ActionResult(EnumActionResult.PASS, player.getHeldItem(hand)); //Create default Return value
 
 			// get the tag compound
-			NBTTagCompound nbtTagCompound = stack.hasTagCompound() ?  stack.getTagCompound() : null;
+			NBTTagCompound nbtTagCompound = stack.hasTagCompound() ? stack.getTagCompound() : null;
 
 			// check if the terminal is linked
 			if(nbtTagCompound == null || !nbtTagCompound.getBoolean("isLinked")) {
+				player.sendMessage(new TextComponentString(""));
 				player.sendMessage(new TextComponentString("§e§l ▶ §cO seu [Remote Access Terminal] não está vinculado a nenhum StorageCore!"));
 				player.sendMessage(new TextComponentString("§e§l    §e > SEGURE SHIFT e clique com o botão direito em um StorageCore para vincular o mesmo!"));
+				player.sendMessage(new TextComponentString(""));
 				return RESULT_SUCESS;
 			}
 
@@ -85,6 +91,15 @@ public class ItemRemoteAccessTerminal extends EZItem {
 			IBlockState blockState = chunk.getBlockState(corePos);
 			BlockStorageCore block = (BlockStorageCore) blockState.getBlock();
 			ItemStack heldItem = player.getHeldItem(hand);
+
+			BlockEvent.BreakEvent event = new BlockEvent.BreakEvent(world, corePos, blockState, player); // TODO: replace isSpawner with null in 1.13
+			MinecraftForge.EVENT_BUS.post(event);
+
+			if (event.isCanceled()){
+				player.sendMessage(new TextComponentString("§e§l ▶ §cVocê não tem permissão para acessar esse StorageCore!"));
+				return RESULT_SUCESS;
+			}
+
 			block.onBlockActivated(worldServer, corePos, blockState, player, hand, heldItem, EnumFacing.NORTH, 0, 0, 0);
 			return RESULT_SUCESS;
 		}
