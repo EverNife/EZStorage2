@@ -21,8 +21,10 @@ import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
 import net.minecraftforge.client.model.ModelLoader;
+import net.minecraftforge.common.util.FakePlayer;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -32,6 +34,7 @@ public class ItemDolly extends EZItem {
 	public ItemDolly(int maxDamage, String name) {
 		super(name);
 		this.setMaxDamage(maxDamage);
+		this.setMaxStackSize(1);
 	}
 
 	// take on a package
@@ -40,6 +43,15 @@ public class ItemDolly extends EZItem {
 			EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
 
 		if(!world.isRemote && hand == EnumHand.MAIN_HAND) {
+
+			if (player instanceof FakePlayer){
+				return EnumActionResult.SUCCESS;
+			}
+
+			if (stack.getCount() != 1){
+				player.sendMessage(new TextComponentString("§e§l ▶ §cSó é possível usar uma dolly por vez!"));
+				return EnumActionResult.SUCCESS;
+			}
 
 			// get the tag compound
 			NBTTagCompound stackTag = stack.hasTagCompound() ?  stack.getTagCompound() : new NBTTagCompound();
