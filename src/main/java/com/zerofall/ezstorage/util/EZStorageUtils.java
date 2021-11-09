@@ -7,9 +7,11 @@ import java.util.List;
 import java.util.Set;
 
 import com.zerofall.ezstorage.block.BlockSecurityBox;
+import com.zerofall.ezstorage.block.BlockStorageCore;
 import com.zerofall.ezstorage.block.StorageMultiblock;
 import com.zerofall.ezstorage.tileentity.TileEntitySecurityBox;
 
+import com.zerofall.ezstorage.tileentity.TileEntityStorageCore;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -94,6 +96,27 @@ public class EZStorageUtils {
 				} else {
 					if (scanned.add(blockRef) == true) {
 						TileEntitySecurityBox entity = findSecurityBox(blockRef, world, scanned);
+						if (entity != null) {
+							return entity;
+						}
+					}
+				}
+			}
+		}
+		return null;
+	}
+
+	public static TileEntityStorageCore findStorageCore(BlockRef br, World world, Set<BlockRef> scanned) {
+		if (scanned == null)
+			scanned = new HashSet<BlockRef>();
+		List<BlockRef> neighbors = EZStorageUtils.getNeighbors(br.pos.getX(), br.pos.getY(), br.pos.getZ(), world);
+		for (BlockRef blockRef : neighbors) {
+			if (blockRef.block instanceof StorageMultiblock) {
+				if (blockRef.block instanceof BlockStorageCore) {
+					return (TileEntityStorageCore) world.getTileEntity(blockRef.pos);
+				} else {
+					if (scanned.add(blockRef) == true) {
+						TileEntityStorageCore entity = findStorageCore(blockRef, world, scanned);
 						if (entity != null) {
 							return entity;
 						}
