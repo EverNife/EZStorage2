@@ -1,6 +1,7 @@
 package com.zerofall.ezstorage.item;
 
 import com.zerofall.ezstorage.block.BlockStorageCore;
+import com.zerofall.ezstorage.integration.EverForgeLibIntegration;
 import com.zerofall.ezstorage.tileentity.TileEntityStorageCore;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.util.ITooltipFlag;
@@ -87,15 +88,11 @@ public class ItemRemoteAccessTerminal extends EZItem {
 				return RESULT_SUCESS;
 			}
 
-
 			IBlockState blockState = chunk.getBlockState(corePos);
 			BlockStorageCore block = (BlockStorageCore) blockState.getBlock();
 			ItemStack heldItem = player.getHeldItem(hand);
 
-			BlockEvent.BreakEvent event = new BlockEvent.BreakEvent(world, corePos, blockState, player); // TODO: replace isSpawner with null in 1.13
-			MinecraftForge.EVENT_BUS.post(event);
-
-			if (event.isCanceled()){
+			if (EverForgeLibIntegration.cantBreak(player, corePos)){
 				player.sendMessage(new TextComponentString("§e§l ▶ §cVocê não tem permissão para acessar esse StorageCore!"));
 				return RESULT_SUCESS;
 			}
