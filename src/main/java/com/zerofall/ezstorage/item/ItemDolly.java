@@ -70,7 +70,7 @@ public class ItemDolly extends EZItem {
 
 				// check if there is already a core at the neighbors
 				if (isCore){
-					TileEntityStorageCore existingCore = EZStorageUtils.findStorageCore(new BlockRef(world.getBlockState(pos).getBlock(), pos.getX(), pos.getY(), pos.getZ()), world,null);
+					TileEntityStorageCore existingCore = EZStorageUtils.findStorageCore(new BlockRef(world.getBlockState(placePos).getBlock(), placePos.getX(), placePos.getY(), placePos.getZ()), world,null);
 
 					if (existingCore != null){
 						player.sendMessage(new TextComponentString("§e§l ▶ §cApenas um StorageCore é permitido por sistema!"));
