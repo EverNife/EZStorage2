@@ -24,20 +24,20 @@ public class EZItems {
 	}
 
 	public static EZItem key;
-	public static EZItem dolly_basic;
+	//public static EZItem dolly_basic;
 	public static EZItem dolly_super;
 	public static EZItem remote_access_terminal;
 
 	private static void init() {
 		items.join(
 			key = new ItemKey(),
-			dolly_basic = new ItemDolly(6, "dolly"),
+		//	dolly_basic = new ItemDolly(6, "dolly"),
 			dolly_super = new ItemDolly(16, "dolly_super"),
 			remote_access_terminal = new ItemRemoteAccessTerminal("remote_access_terminal")
 		);
 		if(!EZConfig.enableSecurity) items.remove(key); // security disabled
 		if(!EZConfig.enableDolly) {
-			items.remove(dolly_basic); // dollies disabled
+		//	items.remove(dolly_basic); // dollies disabled
 			items.remove(dolly_super);
 		}
 	}

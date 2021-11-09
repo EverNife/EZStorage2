@@ -124,8 +124,8 @@ public class CraftingManager {
 		
 		// dollies
 		if (EZConfig.enableDolly) {
-			RecipeHelper.addShapedRecipe(new ItemStack(EZItems.dolly_basic), "X X","X X","PPP", 'X',"ingotIron", 'P',Blocks.STONE_PRESSURE_PLATE);
-			RecipeHelper.addShapedRecipe(new ItemStack(EZItems.dolly_super), " X "," D "," X ", 'X',"ingotGold", 'D',EZItems.dolly_basic);
+			RecipeHelper.addShapedRecipe(new ItemStack(EZItems.dolly_super), "X X","X X","PPP", 'X',"ingotGold", 'P',Blocks.IRON_BLOCK);
+			//RecipeHelper.addShapedRecipe(new ItemStack(EZItems.dolly_super), " X "," D "," X ", 'X',"ingotGold", 'D',EZItems.dolly_basic);
 		}
 
 	}
