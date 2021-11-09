@@ -4,6 +4,8 @@ import java.util.List;
 
 import com.zerofall.ezstorage.tileentity.TileEntityStorageCore;
 
+import com.zerofall.ezstorage.util.BlockRef;
+import com.zerofall.ezstorage.util.EZStorageUtils;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockChest;
 import net.minecraft.block.state.IBlockState;
@@ -65,6 +67,16 @@ public class ItemDolly extends EZItem {
 				IBlockState state = null;
 				boolean isChest = stackTag.getBoolean("isChest");
 				boolean isCore = stackTag.getBoolean("isStorageCore");
+
+				// check if there is already a core at the neighbors
+				if (isCore){
+					TileEntityStorageCore existingCore = EZStorageUtils.findStorageCore(new BlockRef(world.getBlockState(pos).getBlock(), pos.getX(), pos.getY(), pos.getZ()), world,null);
+
+					if (existingCore != null){
+						player.sendMessage(new TextComponentString("§e§l ▶ §cApenas um StorageCore é permitido por sistema!"));
+						return EnumActionResult.SUCCESS;
+					}
+				}
 
 				// check for type and rotate accordingly
 				if(block != null && isChest) {
