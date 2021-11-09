@@ -32,6 +32,7 @@ import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
+import net.minecraft.util.text.TextComponentString;
 
 /** The storage core tile entity */
 public class TileEntityStorageCore extends TileEntityBase {
@@ -245,7 +246,7 @@ public class TileEntityStorageCore extends TileEntityBase {
 			if (count > 1) {
 				if (world.isRemote) {
 					if (Minecraft.getMinecraft() != null && Minecraft.getMinecraft().player != null) {
-						Minecraft.getMinecraft().player.sendChatMessage("You can only have 1 Storage Core per system!");
+						Minecraft.getMinecraft().player.sendMessage(new TextComponentString("§e§l ▶ §cApenas um StorageCore é permitido por sistema!"));
 					}
 				} else if (world.getBlockState(pos).getBlock() == EZBlocks.storage_core) {
 					world.setBlockToAir(getPos());
